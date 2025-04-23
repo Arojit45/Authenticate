@@ -1,12 +1,17 @@
 const express = require('express')
-const connect = require('./db/database')
-
+const cors = require('cors')
+const ConnectDB = require('./db/database')
+const userroute = require('./routes/user.route')
 
 const app = express()
+ConnectDB()
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 
-app.get('login',()=>{
-    res.send('hello')
-})
+
+//entrypoint
+app.use('/api',userroute)
 
 
 module.exports = app
